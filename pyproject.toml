@@ -18,7 +18,7 @@ dependencies = [
     "torchaudio>=2.0.0",
     "sounddevice>=0.4.0",
     "transformers",
-    "whisper_mic",
+    "whisper-mic",
     "scipy",
 ]
 

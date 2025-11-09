@@ -4,10 +4,8 @@ This module contains comprehensive tests for the Speech2Text class,
 including initialization, recording, transcription, and error handling.
 """
 
-import os
-import tempfile
 import unittest
-from unittest.mock import MagicMock, Mock, patch, call
+from unittest.mock import MagicMock, Mock, patch
 
 import numpy as np
 import torch
