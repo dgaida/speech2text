@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "speech2text"
+version = "0.1.0"
+description = "Provides speech-to-text (ASR) capabilities using OpenAI's Whisper model."
+authors = [
+    { name = "Daniel Gaida", email = "daniel.gaida@th-koeln.de" }
+]
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.8"
+
+dependencies = [
+    "torch>=2.0.0",
+    "torchaudio>=2.0.0",
+    "sounddevice>=0.4.0",
+    "transformers",
+    "whisper_mic",
+    "scipy",
+]
+
+[project.urls]
+Homepage = "https://github.com/dgaida/speech2text"
+Repository = "https://github.com/dgaida/speech2text"
+
+[tool.setuptools]
+packages = ["speech2text"]
+
+[tool.setuptools.package-data]
+speech2text = ["py.typed"]
