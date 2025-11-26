@@ -358,8 +358,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Author
 
-**Daniel Gaida**
-Email: daniel.gaida@th-koeln.de
+**Daniel Gaida**  
+Email: daniel.gaida@th-koeln.de  
 GitHub: [@dgaida](https://github.com/dgaida)
 
 ## Acknowledgments
