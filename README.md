@@ -6,7 +6,7 @@ A Python package for speech-to-text (ASR) capabilities using OpenAI's Whisper mo
 
 ![Python](https://img.shields.io/badge/python-3.9+-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![codecov](https://codecov.io/gh/dgaida/text2speech/branch/master/graph/badge.svg)](https://codecov.io/gh/dgaida/text2speech)
+[![codecov](https://codecov.io/gh/dgaida/speech2text/branch/master/graph/badge.svg)](https://codecov.io/gh/dgaida/speech2text)
 [![Code Quality](https://github.com/dgaida/speech2text/actions/workflows/lint.yml/badge.svg)](https://github.com/dgaida/speech2text/actions/workflows/lint.yml)
 [![Tests](https://github.com/dgaida/speech2text/actions/workflows/tests.yml/badge.svg)](https://github.com/dgaida/speech2text/actions/workflows/tests.yml)
 [![CodeQL](https://github.com/dgaida/speech2text/actions/workflows/codeql.yml/badge.svg)](https://github.com/dgaida/speech2text/actions/workflows/codeql.yml)
@@ -256,47 +256,7 @@ Returns the current verbosity setting.
 
 ## Testing
 
-The project includes comprehensive unit tests with high coverage.
-
-### Running Tests
-
-```bash
-# Run all tests
-pytest
-
-# Run with coverage report
-pytest --cov=speech2text --cov-report=html
-
-# Run specific test file
-pytest tests/test_speech2text.py
-
-# Run with verbose output
-pytest -v
-```
-
-### Test Structure
-
-- **`tests/test_speech2text.py`**: Tests for the Speech2Text class
-  - Initialization tests (WhisperMic and local Whisper)
-  - Recording and transcription tests
-  - Silence detection tests
-  - Edge cases and error handling
-
-- **`tests/test_main.py`**: Tests for the CLI application
-  - Argument parsing tests
-  - Device selection tests
-  - Main function workflow tests
-  - Error handling tests
-
-### Test Coverage
-
-Current test coverage includes:
-- ✅ Initialization with both backends
-- ✅ Recording and transcription workflows
-- ✅ Silence detection algorithm
-- ✅ Command-line argument parsing
-- ✅ Error handling and edge cases
-- ✅ Verbose mode functionality
+See [docs/TESTING.md](docs/TESTING.md).
 
 ## Development
 
