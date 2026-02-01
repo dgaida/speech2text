@@ -15,3 +15,6 @@ sys.modules["pynput.mouse"] = MagicMock()
 # Mock whisper_mic to prevent it from importing pynput
 sys.modules["whisper_mic"] = MagicMock()
 sys.modules["whisper_mic.whisper_mic"] = MagicMock()
+
+# Mock sounddevice as it requires PortAudio
+sys.modules["sounddevice"] = MagicMock()

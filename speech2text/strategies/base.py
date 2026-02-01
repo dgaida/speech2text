@@ -15,4 +15,4 @@ class TranscriptionStrategy(Protocol):
             RecordingError: If recording fails.
             TranscriptionError: If transcription fails.
         """
-        ...
+        ...  # pragma: no cover
