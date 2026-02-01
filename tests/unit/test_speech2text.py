@@ -45,3 +45,16 @@ class TestSpeech2Text:
         with Speech2Text(device="cpu", torch_dtype=torch.float32, use_whisper_mic=True) as stt:
             assert stt._whisper_mic is not None
         assert stt._whisper_mic is None
+
+    @patch("speech2text.speech2text.WhisperMic")
+    def test_record_and_transcribe_delegation(self, mock_whisper_mic):
+        stt = Speech2Text(device="cpu", torch_dtype=torch.float32, use_whisper_mic=True)
+        stt._strategy = MagicMock()
+        stt._strategy.transcribe.return_value = "delegated"
+        assert stt.record_and_transcribe() == "delegated"
+        stt._strategy.transcribe.assert_called_once()
+
+    @patch("speech2text.speech2text.WhisperMic")
+    def test_verbose_getter(self, mock_whisper_mic):
+        stt = Speech2Text(device="cpu", torch_dtype=torch.float32, verbose=True)
+        assert stt.verbose() is True
