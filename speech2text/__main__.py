@@ -72,7 +72,7 @@ def main() -> None:
     device = args.device or ("cuda" if torch.cuda.is_available() else "cpu")
     torch_dtype = torch.float16 if args.dtype == "float16" else torch.float32
 
-    model_config = ModelConfig(whisper_model=args.model_size)  # type: ignore
+    model_config = ModelConfig(whisper_model=args.model_size)
     audio_config = AudioConfig()
 
     try:
