@@ -22,6 +22,8 @@ A Python package for speech-to-text (ASR) capabilities using OpenAI's Whisper mo
 - [Usage](#usage)
   - [Command-Line Interface](#command-line-interface)
   - [Python API](#python-api)
+- [Troubleshooting](#troubleshooting)
+- [Performance Guidelines](#performance-guidelines)
 - [Architecture](#architecture)
 - [Testing](#testing)
 - [Development](#development)
@@ -37,17 +39,18 @@ The `speech2text` module provides a Python interface to record audio from a micr
 - **Dual Operating Modes**:
   - **WhisperMic Mode**: Real-time recording and transcription using the [`whisper_mic`](https://github.com/mallorbc/whisper_mic) package
   - **Local Whisper Mode**: Offline transcription using Hugging Face's Whisper model pipeline
+- **Strategy Pattern Architecture**: Easily switchable transcription backends
 - **Automatic Silence Detection**: Intelligently stops recording when no speech is detected
 - **Multi-Language Support**: Automatic detection and translation to English
 - **GPU Acceleration**: Optional CUDA support for faster inference
-- **Flexible Configuration**: Customizable silence thresholds, device selection, and data types
-- **Comprehensive Testing**: Full unit test coverage with mocked dependencies
+- **Context Manager Support**: Automatic resource cleanup
+- **Comprehensive Testing**: Unit and integration tests with high coverage
 
 ## Installation
 
 ### Prerequisites
 
-- Python 3.8 or higher
+- Python 3.9 or higher
 - (Optional) CUDA-capable GPU for accelerated inference
 
 ### Install from Source
@@ -70,22 +73,19 @@ pip install -e .
 
 ```bash
 # Basic usage (uses WhisperMic by default)
-python main.py
+python -m speech2text
 
 # Use local Whisper model instead
-python main.py --no-whisper-mic
+python -m speech2text --no-whisper-mic
+
+# Specify model size
+python -m speech2text --model-size small
 
 # Enable verbose output
-python main.py --verbose
+python -m speech2text --verbose
 
 # Record multiple times
-python main.py --recordings 3
-
-# Force CPU usage
-python main.py --device cpu
-
-# Use float32 precision
-python main.py --dtype float32
+python -m speech2text --recordings 3
 ```
 
 ### Using the Python API
@@ -94,51 +94,38 @@ python main.py --dtype float32
 from speech2text import Speech2Text
 import torch
 
-# Initialize with WhisperMic (recommended for real-time)
-stt = Speech2Text(
+# Initialize with context manager (recommended for automatic cleanup)
+with Speech2Text(
     device="cuda" if torch.cuda.is_available() else "cpu",
     torch_dtype=torch.float16,
     use_whisper_mic=True,
     verbose=True,
-)
-
-# Record and transcribe
-text = stt.record_and_transcribe()
-print("Transcribed text:", text)
+) as stt:
+    # Record and transcribe
+    text = stt.record_and_transcribe()
+    print("Transcribed text:", text)
 ```
 
 ## Usage
 
 ### Command-Line Interface
 
-The `main.py` script provides a full-featured command-line interface:
+The package can be run directly using `python -m speech2text`:
 
 ```bash
-python main.py [OPTIONS]
+python -m speech2text [OPTIONS]
 ```
 
 #### Options
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `--device` | `{cuda,cpu}` | auto-detect | Device for inference |
+| `--device` | string | auto-detect | Device for inference (e.g., 'cuda', 'cpu') |
 | `--no-whisper-mic` | flag | False | Use local Whisper instead of WhisperMic |
+| `--model-size` | `{tiny,base,small,medium,large}` | medium | Whisper model size |
 | `--verbose` | flag | False | Enable verbose output |
 | `--recordings` | int | 1 | Number of recordings to perform |
 | `--dtype` | `{float16,float32}` | float16 | Torch data type for inference |
-
-#### Examples
-
-```bash
-# Single recording with GPU acceleration
-python main.py --device cuda --verbose
-
-# Multiple recordings with local Whisper model
-python main.py --no-whisper-mic --recordings 5
-
-# CPU-only with float32 precision
-python main.py --device cpu --dtype float32
-```
 
 ### Python API
 
@@ -153,42 +140,73 @@ stt = Speech2Text(
     device="cuda",
     torch_dtype=torch.float16,
     use_whisper_mic=True,
-    verbose=False,
 )
 
-# Record and transcribe
-transcription = stt.record_and_transcribe()
+try:
+    # Record and transcribe
+    transcription = stt.record_and_transcribe()
+finally:
+    # Always cleanup resources
+    stt.cleanup()
 ```
 
 #### Advanced Configuration
 
 ```python
-# Using local Whisper model with custom settings
-stt = Speech2Text(
+from speech2text import Speech2Text, AudioConfig, ModelConfig
+import torch
+
+audio_cfg = AudioConfig(silence_threshold=0.001, silence_duration=2.0)
+model_cfg = ModelConfig(whisper_model="small")
+
+with Speech2Text(
     device="cpu",
     torch_dtype=torch.float32,
     use_whisper_mic=False,
+    audio_config=audio_cfg,
+    model_config=model_cfg,
     verbose=True,
-)
-
-# Check verbosity setting
-if stt.verbose():
-    print("Verbose mode enabled")
-
-# Perform transcription
-result = stt.record_and_transcribe()
+) as stt:
+    result = stt.record_and_transcribe()
 ```
 
-#### Custom Silence Detection
+## Troubleshooting
 
-```python
-# The _record_audio_until_silence method can be customized
-# (Note: This is a private method, shown for reference)
-audio_data, sample_rate = Speech2Text._record_audio_until_silence(
-    silence_threshold=0.001,  # Amplitude threshold
-    silence_duration=2.0,      # Seconds of silence before stopping
-)
-```
+### CUDA Out of Memory
+**Problem:** `torch.OutOfMemoryError` when initializing WhisperMic or the local model.
+
+**Solutions:**
+1. Use CPU instead: `--device cpu`
+2. Use a smaller model: `--model-size small` or `--model-size base`
+3. Use `float32` on CPU or ensure you have enough VRAM for `float16` on GPU.
+
+### No Audio Detected
+**Problem:** Recording stops immediately without transcription or fails to detect speech.
+
+**Solutions:**
+1. Check microphone permissions and ensure it's the default input device.
+2. Adjust silence threshold: Initialize `AudioConfig` with a lower `silence_threshold`.
+3. Check microphone input level in your OS settings.
+
+### Installation Issues
+**Problem:** Errors related to `sounddevice` or `portaudio`.
+
+**Solutions:**
+- **Ubuntu/Debian:** `sudo apt-get install libportaudio2`
+- **macOS:** `brew install portaudio`
+- **Windows:** Should work out of the box with the provided wheels.
+
+## Performance Guidelines
+
+| Model Size | VRAM Required | Relative Speed | Accuracy |
+|------------|---------------|----------------|----------|
+| tiny       | ~1 GB         | 32x            | Good     |
+| base       | ~1 GB         | 16x            | Better   |
+| small      | ~2 GB         | 6x             | Good     |
+| medium     | ~5 GB         | 2x             | Better   |
+| large      | ~10 GB        | 1x             | Best     |
+
+**Recommendation:** Use `medium` model with `float16` on GPU for the best balance of speed and accuracy. Use `base` or `small` for low-resource environments.
 
 ## Architecture
 
@@ -197,120 +215,39 @@ audio_data, sample_rate = Speech2Text._record_audio_until_silence(
 ```
 speech2text/
 ├── speech2text/
-│   ├── __init__.py                # Package initialization
-│   └── speech2text.py             # Main Speech2Text class
-├── main.py                        # CLI application
-├── requirements.txt               # Dependencies
-├── pyproject.toml                 # Project configuration
-├── README.md                      # Documentation
-├── tests/                         # Test suite
-│   ├── __init__.py
-│   ├── test_speech2text.py       # Unit tests for Speech2Text
-│   └── test_main.py               # Unit tests for CLI
-└── .github/
-    └── workflows/                 # CI/CD pipelines
-        ├── tests.yml
-        ├── lint.yml
-        ├── codeql.yml
-        └── release.yml
+│   ├── strategies/             # Transcription strategies (Strategy Pattern)
+│   ├── utils/                  # Logging and file utilities
+│   ├── __init__.py             # Package initialization
+│   ├── __main__.py            # CLI entry point
+│   ├── config.py               # Configuration dataclasses
+│   ├── exceptions.py           # Custom exceptions
+│   └── speech2text.py          # Main Speech2Text class
+├── tests/                      # Test suite
+│   ├── unit/                   # Unit tests
+│   ├── integration/            # Integration tests
+│   └── fixtures/               # Test fixtures (audio files)
+├── requirements.txt            # Dependencies
+├── pyproject.toml              # Project configuration
+└── README.md                   # Documentation
 ```
-
-### Class: `Speech2Text`
-
-#### Constructor
-
-```python
-Speech2Text(
-    device: str,
-    torch_dtype: type,
-    use_whisper_mic: bool = True,
-    verbose: bool = False
-) -> None
-```
-
-**Parameters:**
-- `device`: Device for inference (`"cuda"` or `"cpu"`)
-- `torch_dtype`: Torch data type (`torch.float16` or `torch.float32`)
-- `use_whisper_mic`: Whether to use WhisperMic (True) or local Whisper (False)
-- `verbose`: Enable verbose logging
-
-#### Methods
-
-##### `record_and_transcribe() -> str`
-Records speech from the microphone and returns the transcribed text.
-
-**Returns:** Transcribed text as a string
-
-**Raises:** Various exceptions based on the recording backend
-
-##### `verbose() -> bool`
-Returns the current verbosity setting.
-
-**Returns:** `True` if verbose mode is enabled, `False` otherwise
-
-#### Private Methods
-
-- `_record_and_transcribe()`: Handles offline recording and transcription
-- `_record_and_transcribe_whisper_mic()`: Handles real-time WhisperMic transcription
-- `_record_audio_until_silence()`: Records audio until silence is detected
 
 ## Testing
 
-See [docs/TESTING.md](docs/TESTING.md).
+Run tests using `pytest`:
+
+```bash
+pytest
+```
+
+For coverage report:
+
+```bash
+pytest --cov=speech2text
+```
 
 ## Development
 
-### Setting Up Development Environment
-
-```bash
-# Clone the repository
-git clone https://github.com/dgaida/speech2text.git
-cd speech2text
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install development dependencies
-pip install -r requirements.txt
-pip install pytest pytest-cov black ruff mypy bandit
-
-# Install pre-commit hooks
-pip install pre-commit
-pre-commit install
-```
-
-### Code Quality Tools
-
-The project uses several tools to maintain code quality:
-
-- **Black**: Code formatting (line length: 127)
-- **Ruff**: Fast Python linter
-- **MyPy**: Static type checking
-- **Bandit**: Security vulnerability scanning
-
-```bash
-# Format code
-black .
-
-# Lint code
-ruff check .
-
-# Type check
-mypy speech2text --ignore-missing-imports
-
-# Security scan
-bandit -r speech2text/
-```
-
-### Pre-commit Hooks
-
-Pre-commit hooks are configured to run automatically:
-
-```bash
-# Run manually on all files
-pre-commit run --all-files
-```
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed development instructions.
 
 ## License
 
@@ -321,20 +258,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 **Daniel Gaida**  
 Email: daniel.gaida@th-koeln.de  
 GitHub: [@dgaida](https://github.com/dgaida)
-
-## Acknowledgments
-
-- OpenAI for the Whisper model
-- Hugging Face for the Transformers library
-- The [`whisper_mic`](https://github.com/mallorbc/whisper_mic) package maintainers
-
-## Support
-
-For issues, questions, or contributions, please:
-- Open an issue on [GitHub Issues](https://github.com/dgaida/speech2text/issues)
-- Submit a pull request for bug fixes or features
-- Contact the author via email
-
----
-
-**Note**: This module was developed as part of the `robot_environment` framework for multimodal robotic interaction.
