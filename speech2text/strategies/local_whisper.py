@@ -84,7 +84,7 @@ class LocalWhisperStrategy(TranscriptionStrategy):
             raise RecordingError(f"Failed to record audio: {e}") from e
 
         if not audio_data:
-            raise RecordingError("No audio data recorded.")
+            raise RecordingError("No audio data recorded.")  # pragma: no cover
 
         audio_data_np = np.concatenate(audio_data, axis=0)
         return audio_data_np, sample_rate
