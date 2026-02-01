@@ -15,6 +15,7 @@ class AudioConfig:
         silence_duration: Duration of continuous silence before stopping.
         channels: Number of audio channels (1 = mono).
     """
+
     sample_rate: int = 16000
     chunk_duration: float = 0.1
     silence_threshold: float = 0.0005
@@ -31,6 +32,7 @@ class ModelConfig:
         english_only: Whether to use English-only model.
         pause_duration: Pause duration for WhisperMic in seconds.
     """
+
     whisper_model: Literal["tiny", "base", "small", "medium", "large"] = "medium"
     english_only: bool = False
     pause_duration: int = 1

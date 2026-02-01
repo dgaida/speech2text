@@ -1,15 +1,15 @@
 """Speech-to-text module with automatic speech recognition (ASR) capabilities."""
 
-from typing import Optional, Union, Any
+from typing import Any, Optional, Union
+
 import torch
-from transformers import pipeline, Pipeline
+from transformers import Pipeline, pipeline
 from whisper_mic import WhisperMic
 
-from speech2text.config import AudioConfig, ModelConfig, DEFAULT_AUDIO_CONFIG, DEFAULT_MODEL_CONFIG
-from speech2text.exceptions import RecordingError, TranscriptionError
+from speech2text.config import DEFAULT_AUDIO_CONFIG, DEFAULT_MODEL_CONFIG, AudioConfig, ModelConfig
 from speech2text.strategies.base import TranscriptionStrategy
-from speech2text.strategies.whisper_mic import WhisperMicStrategy
 from speech2text.strategies.local_whisper import LocalWhisperStrategy
+from speech2text.strategies.whisper_mic import WhisperMicStrategy
 from speech2text.utils.logging import get_logger, setup_logging
 
 logger = get_logger(__name__)
@@ -76,7 +76,7 @@ class Speech2Text:
                     model=model_config.whisper_model,
                     english=model_config.english_only,
                     pause=model_config.pause_duration,
-                    device=str(device)
+                    device=str(device),
                 )
                 self._strategy = WhisperMicStrategy(self._whisper_mic, verbose=verbose)
                 self._asr_model = None
@@ -91,11 +91,7 @@ class Speech2Text:
                     torch_dtype=torch_dtype,
                     device=device,
                 )
-                self._strategy = LocalWhisperStrategy(
-                    self._asr_model,
-                    audio_config=audio_config,
-                    verbose=verbose
-                )
+                self._strategy = LocalWhisperStrategy(self._asr_model, audio_config=audio_config, verbose=verbose)
                 self._whisper_mic = None
             except Exception as e:
                 logger.error(f"Failed to initialize local Whisper model: {e}")
@@ -137,8 +133,8 @@ class Speech2Text:
 
         if self._asr_model is not None:
             # Move model to CPU and clear CUDA cache if possible
-            if hasattr(self._asr_model, 'model'):
-                self._asr_model.model.to('cpu')
+            if hasattr(self._asr_model, "model"):
+                self._asr_model.model.to("cpu")
             if torch.cuda.is_available():
                 torch.cuda.empty_cache()
             self._asr_model = None

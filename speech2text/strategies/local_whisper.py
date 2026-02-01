@@ -1,26 +1,23 @@
-import os
 import time
+
 import numpy as np
 import sounddevice as sd
 from scipy.io.wavfile import write
 from transformers import Pipeline
-from speech2text.strategies.base import TranscriptionStrategy
-from speech2text.config import AudioConfig, DEFAULT_AUDIO_CONFIG
+
+from speech2text.config import DEFAULT_AUDIO_CONFIG, AudioConfig
 from speech2text.exceptions import RecordingError, TranscriptionError
+from speech2text.strategies.base import TranscriptionStrategy
 from speech2text.utils.file_utils import temporary_audio_file
 from speech2text.utils.logging import get_logger
 
 logger = get_logger(__name__)
 
+
 class LocalWhisperStrategy(TranscriptionStrategy):
     """Transcription strategy using local Whisper model."""
 
-    def __init__(
-        self,
-        asr_model: Pipeline,
-        audio_config: AudioConfig = DEFAULT_AUDIO_CONFIG,
-        verbose: bool = False
-    ):
+    def __init__(self, asr_model: Pipeline, audio_config: AudioConfig = DEFAULT_AUDIO_CONFIG, verbose: bool = False):
         """Initialize local Whisper strategy.
 
         Args:
@@ -50,10 +47,7 @@ class LocalWhisperStrategy(TranscriptionStrategy):
         try:
             with temporary_audio_file() as temp_path:
                 write(temp_path, sample_rate, (audio_data * 32767).astype(np.int16))
-                result = self._asr_model(
-                    temp_path,
-                    generate_kwargs={"task": "translate"}
-                )
+                result = self._asr_model(temp_path, generate_kwargs={"task": "translate"})
                 return str(result["text"])
         except Exception as e:
             raise TranscriptionError(f"Transcription failed: {e}") from e

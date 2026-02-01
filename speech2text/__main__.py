@@ -6,11 +6,12 @@ import time
 
 import torch
 
+from speech2text.config import AudioConfig, ModelConfig
 from speech2text.speech2text import Speech2Text
-from speech2text.config import ModelConfig, AudioConfig
 from speech2text.utils.logging import get_logger
 
 logger = get_logger(__name__)
+
 
 def parse_arguments() -> argparse.Namespace:
     """Parse command-line arguments."""
@@ -63,6 +64,7 @@ def parse_arguments() -> argparse.Namespace:
 
     return parser.parse_args()
 
+
 def main() -> None:
     """Main function."""
     args = parse_arguments()
@@ -80,7 +82,7 @@ def main() -> None:
             use_whisper_mic=not args.no_whisper_mic,
             verbose=args.verbose,
             model_config=model_config,
-            audio_config=audio_config
+            audio_config=audio_config,
         ) as stt:
             for i in range(1, args.recordings + 1):
                 if args.verbose:
@@ -95,6 +97,7 @@ def main() -> None:
     except Exception as e:
         print(f"\nError: {e}", file=sys.stderr)
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

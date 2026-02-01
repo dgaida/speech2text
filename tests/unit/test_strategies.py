@@ -1,10 +1,12 @@
-import pytest
 from unittest.mock import MagicMock, patch
+
 import numpy as np
-import time
+import pytest
+
+from speech2text.exceptions import TranscriptionError
 from speech2text.strategies.local_whisper import LocalWhisperStrategy
 from speech2text.strategies.whisper_mic import WhisperMicStrategy
-from speech2text.exceptions import RecordingError, TranscriptionError
+
 
 class TestLocalWhisperStrategy:
     @patch("speech2text.strategies.local_whisper.sd.InputStream")
@@ -19,7 +21,7 @@ class TestLocalWhisperStrategy:
         # Mock record_audio_until_silence internal part
         mock_stream_instance = MagicMock()
         mock_stream_instance.read.side_effect = [
-            (np.zeros((1600, 1)), None), # Silence
+            (np.zeros((1600, 1)), None),  # Silence
             (np.zeros((1600, 1)), None),
             (np.zeros((1600, 1)), None),
             (np.zeros((1600, 1)), None),
@@ -28,13 +30,14 @@ class TestLocalWhisperStrategy:
 
         # We need to mock time.time to trigger silence detection quickly
         with patch("speech2text.strategies.local_whisper.time.time") as mock_time:
-            mock_time.side_effect = [0, 0.1, 0.2, 5.0] # 5.0 - 0.2 > silence_duration (3.0)
+            mock_time.side_effect = [0, 0.1, 0.2, 5.0]  # 5.0 - 0.2 > silence_duration (3.0)
 
             strategy = LocalWhisperStrategy(asr_model=mock_asr)
             result = strategy.transcribe()
 
             assert result == "hello"
             mock_asr.assert_called_once()
+
 
 class TestWhisperMicStrategy:
     def test_transcribe(self):

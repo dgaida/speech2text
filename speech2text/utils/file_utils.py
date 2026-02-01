@@ -1,10 +1,11 @@
+import logging
 import os
 import tempfile
-import logging
+from collections.abc import Generator
 from contextlib import contextmanager
-from typing import Generator
 
 logger = logging.getLogger(__name__)
+
 
 @contextmanager
 def temporary_audio_file(suffix: str = ".wav") -> Generator[str, None, None]:

@@ -1,9 +1,11 @@
 from whisper_mic import WhisperMic
-from speech2text.strategies.base import TranscriptionStrategy
+
 from speech2text.exceptions import TranscriptionError
+from speech2text.strategies.base import TranscriptionStrategy
 from speech2text.utils.logging import get_logger
 
 logger = get_logger(__name__)
+
 
 class WhisperMicStrategy(TranscriptionStrategy):
     """Transcription strategy using WhisperMic."""

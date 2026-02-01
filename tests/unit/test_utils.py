@@ -1,7 +1,7 @@
-import pytest
-from unittest.mock import MagicMock, patch
-from speech2text.utils.file_utils import temporary_audio_file
 import os
+
+from speech2text.utils.file_utils import temporary_audio_file
+
 
 def test_temporary_audio_file():
     with temporary_audio_file() as temp_path:
