@@ -35,16 +35,15 @@ plugins:
   - search
   - i18n:
       docs_structure: folder
-      default_language: de
+      fallback_to_default: true
       languages:
-        de:
+        - locale: de
           name: Deutsch
-          link: /de/
-          build_site: true
-        en:
+          default: true
+          build: true
+        - locale: en
           name: English
-          link: /en/
-          build_site: true
+          build: true
   - mkdocstrings:
       handlers:
         python:
@@ -53,7 +52,6 @@ plugins:
             show_source: true
             show_root_heading: true
             show_category_heading: true
-            import_outline_revealed: true
   - mermaid2:
       arguments:
         theme: 'default'
