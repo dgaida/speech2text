@@ -1,3 +1,5 @@
+"""File utility functions for audio handling."""
+
 import logging
 import os
 import tempfile
@@ -12,7 +14,7 @@ def temporary_audio_file(suffix: str = ".wav") -> Generator[str, None, None]:
     """Context manager for safe temporary audio file handling.
 
     Args:
-        suffix: File extension for the temporary file.
+        suffix (str): File extension for the temporary file.
 
     Yields:
         str: Path to the temporary file.

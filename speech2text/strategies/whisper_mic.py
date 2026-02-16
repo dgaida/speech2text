@@ -1,3 +1,5 @@
+"""Transcription strategy using the WhisperMic package."""
+
 from whisper_mic import WhisperMic
 
 from speech2text.exceptions import TranscriptionError
@@ -14,8 +16,8 @@ class WhisperMicStrategy(TranscriptionStrategy):
         """Initialize WhisperMic strategy.
 
         Args:
-            whisper_mic: Initialized WhisperMic instance.
-            verbose: Enable verbose output.
+            whisper_mic (WhisperMic): Initialized WhisperMic instance.
+            verbose (bool): Enable verbose output.
         """
         self._whisper_mic = whisper_mic
         self._verbose = verbose

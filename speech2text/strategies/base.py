@@ -1,3 +1,5 @@
+"""Base interface for transcription strategies."""
+
 from typing import Protocol, runtime_checkable
 
 
