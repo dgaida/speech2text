@@ -46,12 +46,12 @@ class Speech2Text:
         """Initializes the Speech2Text class and loads the ASR model.
 
         Args:
-            device: The device to run the ASR model on ("cpu", "cuda", or torch.device).
-            torch_dtype: The torch data type (torch.float16, torch.float32, etc.).
-            use_whisper_mic: Whether to use the `whisper_mic` package. Defaults to True.
-            verbose: Whether to enable verbose output. Defaults to False.
-            audio_config: Audio recording configuration.
-            model_config: Model configuration.
+            device (Union[str, torch.device]): The device to run the ASR model on ("cpu", "cuda", or torch.device).
+            torch_dtype (torch.dtype): The torch data type (torch.float16, torch.float32, etc.).
+            use_whisper_mic (bool): Whether to use the `whisper_mic` package. Defaults to True.
+            verbose (bool): Whether to enable verbose output. Defaults to False.
+            audio_config (AudioConfig): Audio recording configuration.
+            model_config (ModelConfig): Model configuration.
 
         Raises:
             ValueError: If device or torch_dtype is invalid.

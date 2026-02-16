@@ -9,11 +9,11 @@ class AudioConfig:
     """Audio recording configuration.
 
     Attributes:
-        sample_rate: Sample rate for audio recording in Hz.
-        chunk_duration: Duration of each audio chunk in seconds.
-        silence_threshold: Amplitude threshold to detect silence.
-        silence_duration: Duration of continuous silence before stopping.
-        channels: Number of audio channels (1 = mono).
+        sample_rate (int): Sample rate for audio recording in Hz.
+        chunk_duration (float): Duration of each audio chunk in seconds.
+        silence_threshold (float): Amplitude threshold to detect silence.
+        silence_duration (float): Duration of continuous silence before stopping.
+        channels (int): Number of audio channels (1 = mono).
     """
 
     sample_rate: int = 16000
@@ -28,9 +28,9 @@ class ModelConfig:
     """Model configuration.
 
     Attributes:
-        whisper_model: Whisper model size to use.
-        english_only: Whether to use English-only model.
-        pause_duration: Pause duration for WhisperMic in seconds.
+        whisper_model (str): Whisper model size to use ("tiny", "base", "small", "medium", "large").
+        english_only (bool): Whether to use English-only model.
+        pause_duration (int): Pause duration for WhisperMic in seconds.
     """
 
     whisper_model: Literal["tiny", "base", "small", "medium", "large"] = "medium"

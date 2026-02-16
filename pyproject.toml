@@ -22,6 +22,24 @@ dependencies = [
     "scipy",
 ]
 
+[project.optional-dependencies]
+docs = [
+    "mkdocs>=1.6.0",
+    "mkdocs-material>=9.5.0",
+    "mkdocstrings[python]>=0.25.0",
+    "mkdocs-mermaid2-plugin>=0.6.4",
+    "mike>=2.1.0",
+    "mkdocs-static-i18n>=1.2.0",
+    "interrogate>=1.7.0",
+]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=24.0.0",
+    "ruff>=0.3.0",
+    "mypy>=1.0.0",
+]
+
 [project.urls]
 Homepage = "https://github.com/dgaida/speech2text"
 Repository = "https://github.com/dgaida/speech2text"
@@ -109,3 +127,21 @@ exclude_lines = [
     "if __name__ == .__main__.:",
     "if TYPE_CHECKING:",
 ]
+
+[tool.interrogate]
+ignore-init-method = true
+ignore-init-module = false
+ignore-magic = false
+ignore-semiprivate = false
+ignore-private = false
+ignore-property-decorators = false
+ignore-module = false
+ignore-nested-functions = false
+fail-under = 95
+exclude = ["setup.py", "docs", "build", "tests"]
+ignore-regex = ["^get$", "^mock_.*", ".*Base$"]
+verbose = 2
+quiet = false
+whitelist-regex = []
+color = true
+omit-covered-files = false

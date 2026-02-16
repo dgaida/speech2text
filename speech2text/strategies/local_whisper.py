@@ -1,3 +1,5 @@
+"""Transcription strategy using a local Whisper model."""
+
 import time
 
 import numpy as np
@@ -21,9 +23,9 @@ class LocalWhisperStrategy(TranscriptionStrategy):
         """Initialize local Whisper strategy.
 
         Args:
-            asr_model: Hugging Face ASR pipeline.
-            audio_config: Audio recording configuration.
-            verbose: Enable verbose output.
+            asr_model (Pipeline): Hugging Face ASR pipeline.
+            audio_config (AudioConfig): Audio recording configuration.
+            verbose (bool): Enable verbose output.
         """
         self._asr_model = asr_model
         self._audio_config = audio_config
