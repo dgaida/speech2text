@@ -27,11 +27,14 @@ jobs:
           python-version: '3.12'
           cache: 'pip'
 
-      - name: Install dependencies
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y portaudio19-dev libasound2-dev ffmpeg
+
+      - name: Install Python dependencies
         run: |
           pip install .[docs,dev]
-          sudo apt-get update
-          sudo apt-get install -y libportaudio2 libasound2-dev
 
       - name: Run tests and coverage
         run: |
