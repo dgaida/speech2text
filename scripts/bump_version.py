@@ -1,13 +1,15 @@
+import os
 import re
 import sys
-import os
+
+VERSION_PARTS_COUNT = 3
 
 def bump_version(version_str):
     """Increments the patch version of a version string (e.g., 0.1.0 -> 0.1.1)."""
     parts = version_str.split('.')
-    if len(parts) != 3:
+    if len(parts) != VERSION_PARTS_COUNT:
         # Handle cases like "0.1" by padding with zeros
-        while len(parts) < 3:
+        while len(parts) < VERSION_PARTS_COUNT:
             parts.append('0')
     major, minor, patch = map(int, parts)
     patch += 1
@@ -19,7 +21,7 @@ def update_pyproject(filepath):
         print(f"Error: {filepath} not found.")
         sys.exit(1)
 
-    with open(filepath, 'r') as f:
+    with open(filepath) as f:
         content = f.read()
 
     # Match 'version = "X.Y.Z"' or 'version = 'X.Y.Z''
@@ -36,8 +38,8 @@ def update_pyproject(filepath):
     old_version = match.group(2)
     new_version = bump_version(old_version)
 
-    # Replace the version string
-    new_content = re.sub(pattern, rf'\g<1>{new_version}\g<3>', content)
+    # Replace the version string (only the first occurrence to avoid modifying dependencies)
+    new_content = re.sub(pattern, rf'\g<1>{new_version}\g<3>', content, count=1)
 
     with open(filepath, 'w') as f:
         f.write(new_content)
@@ -50,7 +52,7 @@ def update_readme(filepath, old_version, new_version):
         print(f"Warning: {filepath} not found.")
         return
 
-    with open(filepath, 'r') as f:
+    with open(filepath) as f:
         content = f.read()
 
     # Match the shields.io badge URL part: version-X.Y.Z-blue
