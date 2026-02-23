@@ -6,13 +6,16 @@ A Python package for speech-to-text (ASR) capabilities using OpenAI's Whisper mo
 
 ![Python](https://img.shields.io/badge/python-3.9+-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-0.1.1-blue.svg)](https://github.com/dgaida/speech2text/releases)
+[[![Version](https://img.shields.io/github/v/tag/dgaida/speech2text?label=version)](https://github.com/dgaida/speech2text/tags)](https://github.com/dgaida/speech2text/releases)
 [![codecov](https://codecov.io/gh/dgaida/speech2text/branch/master/graph/badge.svg)](https://codecov.io/gh/dgaida/speech2text)
 [![Code Quality](https://github.com/dgaida/speech2text/actions/workflows/lint.yml/badge.svg)](https://github.com/dgaida/speech2text/actions/workflows/lint.yml)
 [![Tests](https://github.com/dgaida/speech2text/actions/workflows/tests.yml/badge.svg)](https://github.com/dgaida/speech2text/actions/workflows/tests.yml)
 [![CodeQL](https://github.com/dgaida/speech2text/actions/workflows/codeql.yml/badge.svg)](https://github.com/dgaida/speech2text/actions/workflows/codeql.yml)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://dgaida.github.io/speech2text/)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/dgaida/speech2text/graphs/commit-activity)
+![Last commit](https://img.shields.io/github/last-commit/dgaida/speech2text)
 
 ## Table of Contents
 
