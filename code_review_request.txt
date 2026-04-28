@@ -1,0 +1,8 @@
+I have updated the documentation configuration and workflow to fix the 404 error at the root documentation URL.
+
+Changes:
+1. Added 'site_url' to 'mkdocs.yml' to ensure correct link generation.
+2. Modified '.github/workflows/docs.yml' to set 'dev' as the default version when deploying to the 'master' branch. This creates the necessary redirection from the root to the 'dev/' documentation.
+3. Updated 'tests/conftest.py' to mock 'pyaudio', preventing test failures in environments without PortAudio.
+
+Please review these changes.

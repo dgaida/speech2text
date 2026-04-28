@@ -65,4 +65,5 @@ jobs:
             mike set-default --push latest
           else
             mike deploy --push dev
+            mike set-default --push dev
           fi
