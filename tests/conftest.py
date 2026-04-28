@@ -18,3 +18,6 @@ sys.modules["whisper_mic.whisper_mic"] = MagicMock()
 
 # Mock sounddevice as it requires PortAudio
 sys.modules["sounddevice"] = MagicMock()
+
+# Mock pyaudio as it requires PortAudio
+sys.modules["pyaudio"] = MagicMock()
