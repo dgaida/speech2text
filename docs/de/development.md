@@ -6,10 +6,10 @@ Folgen Sie den Anweisungen in der [Installation](installation.md) für die Entwi
 
 ## Kodierrichtlinien
 
-- **Docstrings**: Alle öffentlichen APIs müssen Google-Style Docstrings haben.
-- **Formatierung**: Wir verwenden `black` mit einer Zeilenlänge von 127.
-- **Linting**: Wir verwenden `ruff`.
-- **Typisierung**: Strenge Typisierung mit `mypy` ist erforderlich.
+- **Docstrings**: Alle öffentlichen APIs müssen Google-Style Docstrings haben.  
+- **Formatierung**: Wir verwenden `black` mit einer Zeilenlänge von 127.  
+- **Linting**: Wir verwenden `ruff`.  
+- **Typisierung**: Strenge Typisierung mit `mypy` ist erforderlich.  
 
 ## Tests ausführen
 

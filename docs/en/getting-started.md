@@ -4,9 +4,9 @@ In this section, you will learn how to quickly get started with `speech2text`.
 
 ## Quick Setup
 
-1. Install the package (see [Installation](installation.md)).
-2. Initialize the `Speech2Text` class.
-3. Start recording and transcription.
+1. Install the package (see [Installation](installation.md)).  
+2. Initialize the `Speech2Text` class.  
+3. Start recording and transcription.  
 
 ## Minimal Example
 
@@ -26,6 +26,6 @@ with Speech2Text(
 
 ## Next Steps
 
-- Read more about [Configuration](configuration.md).
-- Explore advanced [Usage scenarios](usage.md).
-- Check out the [API Reference](api.md).
+- Read more about [Configuration](configuration.md).  
+- Explore advanced [Usage scenarios](usage.md).  
+- Check out the [API Reference](api.md).  

@@ -6,10 +6,10 @@ Follow the instructions in the [Installation](installation.md) section for the d
 
 ## Coding Guidelines
 
-- **Docstrings**: All public APIs must have Google-style docstrings.
-- **Formatting**: We use `black` with a line length of 127.
-- **Linting**: We use `ruff`.
-- **Typing**: Strict typing with `mypy` is required.
+- **Docstrings**: All public APIs must have Google-style docstrings.  
+- **Formatting**: We use `black` with a line length of 127.  
+- **Linting**: We use `ruff`.  
+- **Typing**: Strict typing with `mypy` is required.  
 
 ## Running Tests
 

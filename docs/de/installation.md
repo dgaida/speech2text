@@ -2,11 +2,11 @@
 
 ## Voraussetzungen
 
-- **Python**: 3.9 oder höher.
-- **System-Bibliotheken**:
-    - **Linux**: `libportaudio2`, `libasound2-dev`.
-    - **macOS**: `portaudio`.
-    - **Windows**: Sollte standardmäßig funktionieren.
+- **Python**: 3.9 oder höher.  
+- **System-Bibliotheken**:  
+    - **Linux**: `libportaudio2`, `libasound2-dev`.  
+    - **macOS**: `portaudio`.  
+    - **Windows**: Sollte standardmäßig funktionieren.  
 
 ## Installation aus dem Quellcode
 

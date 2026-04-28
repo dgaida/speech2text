@@ -24,6 +24,6 @@ def function(arg1, arg2):
 
 ## Anforderungen
 
-- Jede öffentliche Klasse, Methode und Funktion muss einen Docstring haben.
-- Typen sollten im Docstring angegeben werden, auch wenn Typ-Hints verwendet werden.
-- Die Abdeckung wird durch `interrogate` erzwungen (Schwellenwert 95%).
+- Jede öffentliche Klasse, Methode und Funktion muss einen Docstring haben.  
+- Typen sollten im Docstring angegeben werden, auch wenn Typ-Hints verwendet werden.  
+- Die Abdeckung wird durch `interrogate` erzwungen (Schwellenwert 95%).  

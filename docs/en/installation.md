@@ -2,11 +2,11 @@
 
 ## Prerequisites
 
-- **Python**: 3.9 or higher.
-- **System Libraries**:
-    - **Linux**: `libportaudio2`, `libasound2-dev`.
-    - **macOS**: `portaudio`.
-    - **Windows**: Should work out of the box.
+- **Python**: 3.9 or higher.  
+- **System Libraries**:  
+    - **Linux**: `libportaudio2`, `libasound2-dev`.  
+    - **macOS**: `portaudio`.  
+    - **Windows**: Should work out of the box.  
 
 ## Install from Source
 

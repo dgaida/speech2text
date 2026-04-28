@@ -12,6 +12,6 @@ Diese Seite zeigt die aktuellen Qualitätsmetriken des Projekts.
 
 ## Linting & Stil
 
-- **Black**: Bestanden
-- **Ruff**: Bestanden
-- **MyPy**: Bestanden
+- **Black**: Bestanden  
+- **Ruff**: Bestanden  
+- **MyPy**: Bestanden  

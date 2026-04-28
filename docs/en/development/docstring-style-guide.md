@@ -24,6 +24,6 @@ def function(arg1, arg2):
 
 ## Requirements
 
-- Every public class, method, and function must have a docstring.
-- Types should be specified in the docstring even if type hints are used.
-- Coverage is enforced by `interrogate` (threshold 95%).
+- Every public class, method, and function must have a docstring.  
+- Types should be specified in the docstring even if type hints are used.  
+- Coverage is enforced by `interrogate` (threshold 95%).  

@@ -4,9 +4,9 @@ In diesem Abschnitt erfahren Sie, wie Sie schnell mit `speech2text` starten kön
 
 ## Schnelleinrichtung
 
-1. Installieren Sie das Paket (siehe [Installation](installation.md)).
-2. Initialisieren Sie die `Speech2Text`-Klasse.
-3. Starten Sie die Aufnahme und Transkription.
+1. Installieren Sie das Paket (siehe [Installation](installation.md)).  
+2. Initialisieren Sie die `Speech2Text`-Klasse.  
+3. Starten Sie die Aufnahme und Transkription.  
 
 ## Minimales Beispiel
 
@@ -26,6 +26,6 @@ with Speech2Text(
 
 ## Nächste Schritte
 
-- Lesen Sie mehr über die [Konfiguration](configuration.md).
-- Entdecken Sie fortgeschrittene [Nutzungsszenarien](usage.md).
-- Schauen Sie sich die [API-Referenz](api.md) an.
+- Lesen Sie mehr über die [Konfiguration](configuration.md).  
+- Entdecken Sie fortgeschrittene [Nutzungsszenarien](usage.md).  
+- Schauen Sie sich die [API-Referenz](api.md) an.  

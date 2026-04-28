@@ -4,13 +4,13 @@ Willkommen zur Dokumentation von `speech2text`, einem leistungsstarken Python-Mo
 
 ## Hauptmerkmale
 
-- **Zwei Betriebsmodi**:
-    - **WhisperMic**: Echtzeit-Transkription direkt vom Mikrofon.
-    - **Lokales Whisper**: Offline-Transkription mit Hugging Face Pipelines.
-- **Intelligente Stille-Erkennung**: Stoppt die Aufnahme automatisch, wenn nicht mehr gesprochen wird.
-- **Strategie-Entwurfsmuster**: Flexibler Wechsel zwischen verschiedenen Transkriptions-Backends.
-- **GPU-Beschleunigung**: Unterstützung für CUDA für blitzschnelle Inferenzen.
-- **Kontextmanager**: Sichere Ressourcenverwaltung und Bereinigung.
+- **Zwei Betriebsmodi**:  
+    - **WhisperMic**: Echtzeit-Transkription direkt vom Mikrofon.  
+    - **Lokales Whisper**: Offline-Transkription mit Hugging Face Pipelines.  
+- **Intelligente Stille-Erkennung**: Stoppt die Aufnahme automatisch, wenn nicht mehr gesprochen wird.  
+- **Strategie-Entwurfsmuster**: Flexibler Wechsel zwischen verschiedenen Transkriptions-Backends.  
+- **GPU-Beschleunigung**: Unterstützung für CUDA für blitzschnelle Inferenzen.  
+- **Kontextmanager**: Sichere Ressourcenverwaltung und Bereinigung.  
 
 ## Zielgruppe
 

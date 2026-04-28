@@ -12,6 +12,6 @@ This page shows the current quality metrics of the project.
 
 ## Linting & Style
 
-- **Black**: Passed
-- **Ruff**: Passed
-- **MyPy**: Passed
+- **Black**: Passed  
+- **Ruff**: Passed  
+- **MyPy**: Passed  

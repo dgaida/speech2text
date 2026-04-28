@@ -19,20 +19,20 @@ A Python package for speech-to-text (ASR) capabilities using OpenAI's Whisper mo
 
 ## Table of Contents
 
-- [Overview](#overview)
-- [Features](#features)
-- [Installation](#installation)
-- [Quick Start](#quick-start)
-- [Usage](#usage)
-  - [Command-Line Interface](#command-line-interface)
-  - [Python API](#python-api)
-- [Troubleshooting](#troubleshooting)
-- [Performance Guidelines](#performance-guidelines)
-- [Architecture](#architecture)
-- [Testing](#testing)
-- [Development](#development)
-- [Contributing](#contributing)
-- [License](#license)
+- [Overview](#overview)  
+- [Features](#features)  
+- [Installation](#installation)  
+- [Quick Start](#quick-start)  
+- [Usage](#usage)  
+  - [Command-Line Interface](#command-line-interface)  
+  - [Python API](#python-api)  
+- [Troubleshooting](#troubleshooting)  
+- [Performance Guidelines](#performance-guidelines)  
+- [Architecture](#architecture)  
+- [Testing](#testing)  
+- [Development](#development)  
+- [Contributing](#contributing)  
+- [License](#license)  
 
 ## Overview
 
@@ -40,22 +40,22 @@ The `speech2text` module provides a Python interface to record audio from a micr
 
 ## Features
 
-- **Dual Operating Modes**:
-  - **WhisperMic Mode**: Real-time recording and transcription using the [`whisper_mic`](https://github.com/mallorbc/whisper_mic) package
-  - **Local Whisper Mode**: Offline transcription using Hugging Face's Whisper model pipeline
-- **Strategy Pattern Architecture**: Easily switchable transcription backends
-- **Automatic Silence Detection**: Intelligently stops recording when no speech is detected
-- **Multi-Language Support**: Automatic detection and translation to English
-- **GPU Acceleration**: Optional CUDA support for faster inference
-- **Context Manager Support**: Automatic resource cleanup
-- **Comprehensive Testing**: Unit and integration tests with high coverage
+- **Dual Operating Modes**:  
+  - **WhisperMic Mode**: Real-time recording and transcription using the [`whisper_mic`](https://github.com/mallorbc/whisper_mic) package  
+  - **Local Whisper Mode**: Offline transcription using Hugging Face's Whisper model pipeline  
+- **Strategy Pattern Architecture**: Easily switchable transcription backends  
+- **Automatic Silence Detection**: Intelligently stops recording when no speech is detected  
+- **Multi-Language Support**: Automatic detection and translation to English  
+- **GPU Acceleration**: Optional CUDA support for faster inference  
+- **Context Manager Support**: Automatic resource cleanup  
+- **Comprehensive Testing**: Unit and integration tests with high coverage  
 
 ## Installation
 
 ### Prerequisites
 
-- Python 3.9 or higher
-- (Optional) CUDA-capable GPU for accelerated inference
+- Python 3.9 or higher  
+- (Optional) CUDA-capable GPU for accelerated inference  
 
 ### Install from Source
 
@@ -179,26 +179,26 @@ with Speech2Text(
 ### CUDA Out of Memory
 **Problem:** `torch.OutOfMemoryError` when initializing WhisperMic or the local model.
 
-**Solutions:**
-1. Use CPU instead: `--device cpu`
-2. Use a smaller model: `--model-size small` or `--model-size base`
-3. Use `float32` on CPU or ensure you have enough VRAM for `float16` on GPU.
+**Solutions:**  
+1. Use CPU instead: `--device cpu`  
+2. Use a smaller model: `--model-size small` or `--model-size base`  
+3. Use `float32` on CPU or ensure you have enough VRAM for `float16` on GPU.  
 
 ### No Audio Detected
 **Problem:** Recording stops immediately without transcription or fails to detect speech.
 
-**Solutions:**
-1. Check microphone permissions and ensure it's the default input device.
-2. Adjust silence threshold: Initialize `AudioConfig` with a lower `silence_threshold`.
-3. Check microphone input level in your OS settings.
+**Solutions:**  
+1. Check microphone permissions and ensure it's the default input device.  
+2. Adjust silence threshold: Initialize `AudioConfig` with a lower `silence_threshold`.  
+3. Check microphone input level in your OS settings.  
 
 ### Installation Issues
 **Problem:** Errors related to `sounddevice` or `portaudio`.
 
-**Solutions:**
-- **Ubuntu/Debian:** `sudo apt-get install libportaudio2`
-- **macOS:** `brew install portaudio`
-- **Windows:** Should work out of the box with the provided wheels.
+**Solutions:**  
+- **Ubuntu/Debian:** `sudo apt-get install libportaudio2`  
+- **macOS:** `brew install portaudio`  
+- **Windows:** Should work out of the box with the provided wheels.  
 
 ## Performance Guidelines
 
